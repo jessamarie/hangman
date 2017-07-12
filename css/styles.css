@@ -1,0 +1,108 @@
+/* color palette:
+BG: #99D3DF //ice
+Color: #FFFFF
+
+#88BBD6 // Fresh Water
+#CDCDCD //Plaster
+#E9E9E9 //Linen
+*/
+
+body {
+  background-color: #99D3DF;
+  color: #FFFFFF;
+  font-family: 'Merriweather', serif;
+  text-align: center;
+  min-height: 100vh;
+  margin: 0 auto;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+main {
+  /*display: flex;
+  flex-direction: row;*/
+  /*justify-content: space-between;*/
+  /*align-items: center;*/
+}
+
+div {
+  margin: 0 auto;
+  border: black 1px dashed;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  min-width: 50%;
+}
+
+#game {
+  min-width: 95vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.display {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.display div {
+  min-width: 100%;
+}
+
+.hangman {
+  height: 70%;
+}
+
+.underscore {
+  font-size: 3vw;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.options {
+  height: 5%;
+  justify-content:flex-end;
+  align-items: flex-end;
+}
+
+.center {
+  height: 25%;
+  display: inline;
+}
+
+.options * {
+margin: 0 auto;
+}
+
+
+header, footer {
+  width: 100%;
+  background: rgba(233,233,233, .5);
+  /* backup bg here */
+  color: #FFFFFF;
+  line-height: 30px;
+}
+
+footer {
+  height: 30px;
+}
+
+header {
+  height: 50px;
+}
+
+.hide {
+  display: none
+}
