@@ -7,28 +7,17 @@ Color: #FFFFF
 #E9E9E9 //Linen
 */
 
+/* remove later */
+div {
+  /*border: #E9E9E9 1px dashed;*/
+}
+/* remove later */
+
 body {
   background-color: #99D3DF;
-  color: #FFFFFF;
-  font-family: 'Merriweather', serif;
-  text-align: center;
   min-height: 100vh;
   margin: 0 auto;
-  display:flex;
-  flex-direction: column;
   justify-content: space-between;
-}
-
-main {
-  /*display: flex;
-  flex-direction: row;*/
-  /*justify-content: space-between;*/
-  /*align-items: center;*/
-}
-
-div {
-  margin: 0 auto;
-  border: black 1px dashed;
 }
 
 .row {
@@ -39,59 +28,58 @@ div {
 .column {
   display: flex;
   flex-direction: column;
-  min-width: 50%;
 }
 
-#game {
-  min-width: 95vw;
-  min-height: 80vh;
-  display: flex;
-  flex-direction: row;
+main {
+  padding: 50px 10px;
+  min-height: 100vh;
 }
 
 .display {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.display div {
-  min-width: 100%;
+  max-height: 50%;
 }
 
 .hangman {
-  height: 70%;
+  min-width: 40%;
+  border: #E9E9E9 1px dashed;
+}
+
+.letters {
+  align-items: center;
+  width: 60%;
+}
+
+.letters div {
+  width: 100%;
+}
+
+.letter {
+  max-width: 100%;
 }
 
 .underscore {
-  font-size: 3vw;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  padding: 5vh;
 }
 
 .options {
-  height: 5%;
-  justify-content:flex-end;
-  align-items: flex-end;
+  height: 5vh;
+  align-self: flex-end;
 }
 
-.center {
-  height: 25%;
-  display: inline;
+.options input {
+  width: 100px;
+  height: 10px;
 }
 
 .options * {
-margin: 0 auto;
+  margin: 0 auto;
 }
 
 
 header, footer {
   width: 100%;
-  background: rgba(233,233,233, .5);
-  /* backup bg here */
-  color: #FFFFFF;
+  background: rgba(233,233,233);
+  background: rgba(233,233,233, .1);
   line-height: 30px;
 }
 

@@ -7,16 +7,39 @@
 // Add timer-based scoring
 // Track scores across games (even if the page is reloaded)
 
+$(document).ready(function () {
+
+}) // end ready
 
 /* global $ */
 console.log('get coding!')
 
-setTimeout(function() {
+setTimeout(function () {
 
 //  $('#welcome').addClass('hide')
 //   $('#game').removeClass('hide')
 
-},100);
+}, 100)
 
- $('#welcome').addClass('hide')
- $('#game').removeClass('hide')
+$('#welcome').addClass('hide')
+$('#game').removeClass('hide')
+
+var alphabet = '-ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+var makeLetters = function () {
+  var $letters = $('.letters')
+  for (var i = 1; i < alphabet.length; i++) {
+    var $newRow = $('<div class="row"></div>')
+
+    while (i % 7 !== 0 && i !== 27) {
+      var $newDiv = $('<div class="letter"></div>')
+      $($newDiv).attr('id', alphabet[i])
+      $newDiv.text(alphabet[i])
+      $newRow.append($newDiv)
+      i++
+    }
+    $letters.append($newRow)
+  }
+}
+
+makeLetters()
