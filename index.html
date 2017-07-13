@@ -18,25 +18,12 @@
 
     <main>
 
-      <div id="welcome">
-        <div class="row">
-          <input class='playGame' type="button" name="play game" value="Play Game">
-          <input class='instructions' type="button" name="instructions" value="Instructions">
-        </div>
-
-
-      </div>
-
-      <div id="wordEntry" class="hide">
-        <input class='word' type="text" name="word" value="Enter Word Here">
-      </div>
-
-      <div id="instructions" class="hide">
+      <div id="tutorial" class="hide">
         <!-- images with tutorial -->
       </div>
 
 
-      <div id="game" class="column hide">
+      <div id="game">
 
         <div class="display row">
 
@@ -49,19 +36,26 @@
 
         </div>
 
-        <div class="column text-bottom">
-          <div class="underscore">
-            _ _ _ _ _ _ _ _ _ _ _ _ _
+        <div class="row function">
+
+          <div class="welcome">
+            <input class='playGame' type="button" name="play game" value="Play Game">
+            <input class='instructions' type="button" name="instructions" value="Instructions">
           </div>
 
+          <div class="word hide">
+            <input class='input' type="text" name="word" placeholder="Enter Word Here" value="word" autofocus>
+          </div>
 
-        <div class="column options">
-          <input class='newGame' type="button" name="newgame" value="New Game">
-          <p>Games won: <span class="score">0</span></p>
-        </div>
+          <div class="underscore">
+          </div>
 
       </div>
 
+      <div class="column options">
+        <input class='newGame' type="button" name="newgame" value="New Game">
+        <p>Games won: <span class="score">0</span></p>
+      </div>
 
     </main>
 
@@ -74,7 +68,9 @@
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
   crossorigin="anonymous">
-  </script>
+    </script>
+    <script src="js/HangmanModel.js" charset="utf-8"></script>
+    <script src="js/HangmanView.js" charset="utf-8"></script>
     <script src="js/script.js" charset="utf-8"></script>
 
 

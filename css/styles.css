@@ -58,6 +58,12 @@ main {
 }
 
 .underscore {
+  margin: 0 auto;
+  padding: 5vh;
+}
+
+.word, .welcome {
+  margin: 0 auto;
   padding: 5vh;
 }
 
