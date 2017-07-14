@@ -44,7 +44,7 @@ class WindowView {
         $newDiv.text(alphabet[i])
         $newRow.append($newDiv)
 
-        if (i % 7 === 0) { break }
+        if (i % 5 === 0) { break }
         i++
       }
       this.displays.letters.append($newRow)
@@ -65,15 +65,20 @@ class WindowView {
       this.renderGuesses()
 
       if (this.model.wonGame()) {
+        $('audio').trigger('pause').prop('currentTime', 0)
         $('.cheering').trigger('play')
       }
     } else {
       this.hangman.removeBodyPart()
 
       if (this.model.lostGame()) {
+        $('audio').trigger('pause').prop('currentTime', 0)
         $('.decapitation').trigger('play')
+
       } else {
+        $('audio').trigger('pause').prop('currentTime', 0)
         $('.torture').trigger('play')
+
       }
     }
   }
@@ -86,7 +91,7 @@ class WindowView {
       this.displays.game.removeClass('hide')
 
       /* TODO: make letters clickable */
-      this.displays.letter.css('color', 'white')
+      this.displays.letter.css('color', 'black')
 
       this.model.setWord(this.input.val())
       this.input.val('') // clears input
@@ -98,7 +103,7 @@ class WindowView {
 
   playGame () {
     /* TODO: make letters unclickable */
-    this.displays.letter.css('color', 'white')
+    this.displays.letter.css('color', 'black')
     this.displays.welcome.addClass('hide')
     this.displays.game.addClass('hide')
     this.displays.word.removeClass('hide')
