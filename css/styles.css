@@ -17,6 +17,7 @@ body {
 
 main {
   padding: 40px 20px;
+  height: 100%;
 }
 
 .display {
@@ -34,7 +35,9 @@ canvas {
 }
 
 .letters {
+  margin: auto 0;
   align-items: center;
+  padding: 10px 0;
   width: 50%;
 }
 
