@@ -7,10 +7,11 @@
 // Add timer-based scoring
 // Track scores across games (even if the page is reloaded)
 
-/* global $ HangmanView HangmanModel */
+/* global $ HangmanView WindowView HangmanModel */
 
 $(document).ready(function () {
-  var hangmanModel = new HangmanModel()
-  var hangmanView = new HangmanView(hangmanModel)
-  hangmanView.init()
+  var model = new HangmanModel()
+  var hangmanView = new HangmanView(model)
+  var windowView = new WindowView(hangmanView, model)
+  windowView.init()
 }) // end ready

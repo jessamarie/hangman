@@ -1,181 +1,435 @@
 /* global $ */
 
 class HangmanView {
-
   constructor (model) {
     this.model = model
-    this.hangman = new Hangman($('.hangman'))
-  }
+    this.hangman = $('.hangman')
+    this.canvas = $('<canvas></canvas>')
+    this.bodyParts = []
 
-  init () {
-    this.input = $('.input')
-    this.buttons = {
-      playGame: $('.playGame'),
-      instructions: $('instructions'),
-      newGame: $('.newGame')
-    }
-    this.displays = {
-      display: $('.display'),
-      tutorial: $('#tutorial'),
-      word: $('.word'),
-      welcome: $('.welcome'),
-      game: $('#game'),
-      options: $('.options'),
-      score: $('.score'),
-      hangman: $('.hangman'),
-      letters: $('.letters'),
-      underscore: $('.underscore')
-    }
-
-    this.preRender()
-    this.displays.letter = $('.letter')
+    this.resetDimensions()
     this.listen()
-    this.postRender()
+    this.initBodyParts()
+    this.initVariables()
   }
 
-  preRender () {
-    this.renderLetters()
+  initVariables () {
+    // gallows
+    this.gallowsColor = '#8B4513'
+    this.gallowXStart = 0
+    this.platFormYOffset = (this.height / 10)
+    this.platformYStart = this.height - this.platFormYOffset
+    this.platFormThickness = this.height / 15
+    this.gallowThickness = this.width / 25
+    this.topYOffset = this.height / 1.1
+    this.topYStart = this.height - this.topYOffset
+    this.topLength = this.width / 1.2
+
+    // stool
+    this.stoolColor = '#A0522D'
+    this.stoolLegWidth = this.width / 30
+    this.stoolLegHeight = this.height / 10
+    this.stoolWidth = this.width / 5
+    this.stoolHeight = this.height / 30
+
+    this.stoolXOffset = (this.width / 2)
+    this.stoolYOffset = (this.height / 5)
+    this.stoolXStart = this.width - this.stoolXOffset
+    this.stoolYStart = this.height - this.stoolYOffset
+
+    this.rightStoolLegX = this.stoolXStart + this.stoolWidth - this.stoolLegWidth
+
+    // body
+    this.bodyThickness = 3
+    this.bodyColor = 'green'
+    this.bodyX = this.stoolXStart + this.stoolWidth / 2
+    this.bodyYStart = this.height / 2.7
+    this.bodyYEnd = this.height / 1.6
+
+    // limbs
+    this.limbColor = 'black'
+    this.leftLimbX = this.stoolXStart + this.stoolLegWidth
+    this.rightLimbX = this.rightStoolLegX
+
+    this.legYStart = this.height / 1.6
+    this.legYEnd = this.stoolYStart
+    this.armYStart = this.bodyYStart + (this.bodyYEnd - this.bodyYStart) / 10
+    this.armYEnd = this.height / 1.9
+
+    this.leftLimbConnecterXStart = this.leftLimbX
+    this.rightLimbConnecterXEnd = this.rightLimbX
+    this.legConnecterY = this.bodyYEnd
+    this.armConnecterY = this.armYStart
+    this.limbConnecterX = this.bodyX + this.bodyThickness / 2
+
+    // face
+
+    this.headRadius = this.width / 14
+    this.headX = this.bodyX
+    this.headY = this.height / 3.22
+
+    this.leftEyeX = this.headX - (this.headRadius / 4)
+    this.rightEyeX = this.headX + (this.headRadius / 2)
+    this.eyeY = this.headY - (this.headRadius / 3)
+    this.eyeRadius = this.headRadius / 9
+
+    this.mouthStartX = this.headX + (this.headRadius / 6)
+    this.mouthStartY = this.headY + (this.headRadius / 2)
+    this.mouthRadius = this.headRadius / 5
+    this.mouthAngleStart = 270
+    this.mouthAngleEnd = 90
+
+    // rope
+    this.ropeColor = 'brown'
+    this.ropeThickness = 5
+    this.ropeLength = this.headX
+    this.ropeStartX = this.stoolXStart + (this.stoolWidth / 2)
+    this.ropeStartY = this.topYStart
+
+    this.nooseStartX = this.headX
+    this.nooseStartY = this.headY + 4
+    this.nooseRadius = this.headRadius
+    this.nooseAngleStart = 90
+    this.nooseAngleEnd = 270
   }
 
-  renderLetters () {
-    var alphabet = '-ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  initBodyParts () {
+    var self = this
 
-    for (var i = 1; i < alphabet.length; i++) {
-      var $newRow = $('<div class="row"></div>')
-
-      while (i % 7 !== 0 && i !== 27) {
-        var $newDiv = $('<div class="letter"></div>')
-        $($newDiv).addClass(alphabet[i])
-        $newDiv.text(alphabet[i])
-        $newRow.append($newDiv)
-        i++
-      }
-      this.displays.letters.append($newRow)
-    }
+    this.bodyParts.push(function () { self.drawStool() })
+    this.bodyParts.push(function () { self.drawRope() })
+    this.bodyParts.push(function () { self.drawFace() })
+    this.bodyParts.push(function () { self.drawMouth() })
+    this.bodyParts.push(function () { self.drawLeftEye() })
+    this.bodyParts.push(function () { self.drawRightEye() })
+    this.bodyParts.push(function () { self.drawBody() })
+    this.bodyParts.push(function () { self.drawLeftLeg() })
+    this.bodyParts.push(function () { self.drawRightLeg() })
+    this.bodyParts.push(function () { self.drawRightArm() })
+    this.bodyParts.push(function () { self.drawLeftArm() })
   }
 
   listen () {
-    this.displays.letter.on('click', this.handleLetterClick.bind(this))
-    this.input.keypress(this.handleWordEntry.bind(this))
-    this.buttons.playGame.on('click', this.playGame.bind(this))
-    this.buttons.newGame.on('click', this.playGame.bind(this))
+    $(window).resize(this.resizeCanvas.bind(this))
   }
 
-  handleLetterClick (e) {
-    $(e.target).css('color', 'gray')
-
-    this.model.setGuess(e.target.outerText)
-
-    if (this.model.checkGuess()) {
-      this.renderGuesses()
-
-      if (this.model.wonGame()) { /* you won! */ }
-    } else {
-      // tear off limb ouch!
-
-      if (this.model.lostGame()) { /* You lost :( */ }
-    }
+  resizeCanvas () {
+    this.resetDimensions()
+    this.initVariables()
+    this.draw()
   }
 
-  handleWordEntry (e) {
-    if (e.which === 13) {
-      // TODO: error check if val() === empty
-      e.preventDefault()
-      this.displays.word.addClass('hide')
-      this.displays.underscore.removeClass('hide')
-
-      /* TODO: make letters clickable */
-      this.displays.letter.css('color', 'white')
-
-      this.model.setWord(this.input.val())
-      this.input.val('') // clears input
-
-      this.renderGuesses()
-      this.renderHangman()
-    }
+  setDimensions () {
+    this.width = parseInt($(this.hangman).css('width'))
+    this.height = parseInt($(this.hangman).css('height'))
   }
 
-  playGame () {
-    /* TODO: make letters unclickable */
-    this.displays.letter.css('color', 'white')
-    this.displays.welcome.addClass('hide')
-    this.displays.underscore.addClass('hide')
-    this.displays.word.removeClass('hide')
+  resetDimensions () {
+    this.canvas.empty()
 
-    this.hangman.draw()
-  }
+    this.canvas.attr('width', 0)
+    this.canvas.attr('height', 0)
 
-  renderGuesses () {
-    var guesses = this.model.getGuesses()
-    this.displays.underscore.children('span').empty()
+    this.setDimensions()
 
-    for (var i = 0; i < guesses.length; i++) {
-      var $newSpan = $('<span></span>')
-      $newSpan.attr('class', guesses[i].toUpperCase())
-      $newSpan.text(guesses[i] + ' ')
-      this.displays.underscore.append($newSpan)
-    }
-  }
-
-  renderHangman () {
-
-    // draw
-
-  }
-
-  postRender () {
-    // render score?
-  }
-
-} // end class
-
-class Hangman {
-  constructor (board) {
-    this.board = board
-    this.width = 0
-    this.height = 0
-
-    this.bodyParts = {}
-
-    init()
-  }
-
-  init () {
-    add('hair', [3, 2])
-  }
-
-  add (bodyPart, dimensions) {
-    this.bodyParts.push({
-      bodyPart: dimensions
-    })
+    this.canvas.attr('width', this.width)
+    this.canvas.attr('height', this.height)
   }
 
   removeBodyPart () {
     this.bodyParts.pop()
+    this.draw()
   }
 
   draw () {
-    var $canvas = $('<canvas></canvas>')
+    this.resetDimensions()
 
-    if ($canvas.getContext) {
-      var ctx = canvas.getContext('2d');
+    this.drawGallow()
 
-      ctx.fillStyle = 'rgb(200, 0, 0)';
-      ctx.fillRect(10, 10, 50, 50);
+    for (var i = 0; i < this.bodyParts.length; i++) {
+      this.bodyParts[i]()
+    }
 
-      ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
-      ctx.fillRect(30, 30, 50, 50);
-}
-
-    this.board.append($canvas)
+    this.hangman.append(this.canvas)
   }
 
-  setDim (width, height) {
-    this.width = width
-    this.height = height
+  drawRope () {
+    this.drawRectangle(
+      this.ropeColor,
+      this.ropeStartX,
+      this.ropeStartY,
+      this.ropeThickness,
+      this.ropeLength
+    )
 
-    this.draw()
+    this.drawArc(
+      this.ropeColor,
+      this.ropeThickness,
+      this.nooseStartX,
+      this.nooseStartY,
+      this.nooseRadius,
+      this.nooseAngleStart,
+      this.nooseAngleEnd
+    )
+
   }
+
+  drawMouth () {
+    this.drawArc(
+      this.limbColor,
+      this.bodyThickness,
+      this.mouthStartX,
+      this.mouthStartY,
+      this.mouthRadius,
+      this.mouthAngleStart,
+      this.mouthAngleEnd
+    )
+  }
+
+  drawRightEye () {
+    this.drawCircle(
+      this.limbColor,
+      this.bodyThickness,
+      this.rightEyeX,
+      this.eyeY,
+      this.eyeRadius,
+      this.limbColor
+    )
+  }
+
+  drawLeftEye () {
+    this.drawCircle(
+      this.limbColor,
+      this.bodyThickness,
+      this.leftEyeX,
+      this.eyeY,
+      this.eyeRadius,
+      this.limbColor
+    )
+  }
+
+  drawFace () {
+    this.drawCircle(
+      this.limbColor,
+      this.bodyThickness,
+      this.headX,
+      this.headY,
+      this.headRadius
+    )
+  }
+
+  drawBody () {
+    // this.drawLimb(
+    //   this.limbColor,
+    //   this.bodyThickness,
+    //   this.bodyX,
+    //   this.bodyYStart,
+    //   this.bodyX,
+    //   this.bodyYEnd)
+
+    this.drawRectangle(
+      this.bodyColor,
+      this.stoolXStart,
+      this.bodyYStart,
+      this.stoolWidth,
+      this.height / 3.5
+    )
+  }
+
+  drawLeftArm () {
+    // arm connecter
+
+    // TO DO MAKE ARCS
+    // this.drawLimb(
+    //   this.limbColor,
+    //   this.bodyThickness,
+    //   this.leftLimbConnecterXStart,
+    //   this.armConnecterY,
+    //   this.limbConnecterX,
+    //   this.armConnecterY)
+    // arm
+    this.drawLimb(
+      this.limbColor,
+      this.bodyThickness,
+      this.leftLimbX,
+      this.armYStart,
+      this.leftLimbX,
+      this.armYEnd)
+  }
+
+  drawRightArm () {
+    // arm connecter
+    // this.drawLimb(
+    //   this.limbColor,
+    //   this.bodyThickness,
+    //   this.limbConnecterX,
+    //   this.armConnecterY,
+    //   this.rightLimbConnecterXEnd,
+    //   this.armConnecterY)
+
+    this.drawLimb(
+      this.limbColor,
+      this.bodyThickness,
+      this.rightLimbX,
+      this.armYStart,
+      this.rightLimbX,
+      this.armYEnd)
+  }
+
+  drawLeftLeg () {
+    // leg connecter
+    // this.drawLimb(
+    //   this.limbColor,
+    //   this.bodyThickness,
+    //   this.leftLimbConnecterXStart,
+    //   this.legConnecterY,
+    //   this.limbConnecterX,
+    //   this.legConnecterY)
+
+      // leg
+    this.drawLimb(
+      this.limbColor,
+      this.bodyThickness,
+      this.leftLimbX,
+      this.legYStart,
+      this.leftLimbX,
+      this.legYEnd)
+  }
+
+  drawRightLeg () {
+    // leg connecter
+
+    // this.drawLimb(
+    //   this.limbColor,
+    //   this.bodyThickness,
+    //   this.limbConnecterX,
+    //   this.legConnecterY,
+    //   this.rightLimbConnecterXEnd,
+    //   this.legConnecterY)
+
+      // leg
+
+    this.drawLimb(
+      this.limbColor,
+      this.bodyThickness,
+      this.rightLimbX,
+      this.legYStart,
+      this.rightLimbX,
+      this.legYEnd)
+  }
+
+  drawStool () {
+    // leg connecter
+
+    // left leg
+    this.drawRectangle(
+      this.stoolColor,
+      this.stoolXStart,
+      this.stoolYStart,
+      this.stoolLegWidth,
+      this.stoolLegHeight
+    )
+
+    // right leg
+    this.drawRectangle(
+      this.stoolColor,
+      this.rightStoolLegX,
+      this.stoolYStart,
+      this.stoolLegWidth,
+      this.stoolLegHeight
+    )
+
+    // top
+    this.drawRectangle(
+      this.stoolColor,
+      this.stoolXStart,
+      this.stoolYStart,
+      this.stoolWidth,
+      this.stoolHeight
+    )
+  }
+
+  drawGallow () {
+    // platform
+    this.drawRectangle(
+      this.gallowsColor,
+      this.gallowXStart,
+      this.platformYStart,
+      this.width,
+      this.platFormThickness
+    )
+    // side
+    this.drawRectangle(
+      this.gallowsColor,
+      this.gallowXStart,
+      0,
+      this.gallowThickness,
+      this.height
+    )
+    // top
+    this.drawRectangle(
+      this.gallowsColor,
+      0,
+      this.topYStart,
+      this.topLength,
+      this.gallowThickness)
+  }
+
+  drawRectangle (fill, startX, startY, w, h) {
+    var properties = {
+      fillStyle: fill,
+      // strokeStyle: 'brown',
+      // strokeWidth: 0,
+      x: startX,
+      y: startY,
+      fromCenter: false,
+      width: w,
+      height: h
+    }
+
+    this.canvas.drawRect(properties)
+  }
+
+  drawCircle (strokeColor, thickness, startX, startY, r, fill = 'white') {
+    var properties = {
+      strokeStyle: strokeColor,
+      fillStyle: fill,
+      strokeWidth: thickness,
+      x: startX,
+      y: startY,
+      radius: r
+    }
+
+    this.canvas.drawArc(properties)
+  }
+
+  drawArc (strokeColor, thickness, startX, startY, r, s, e) {
+    var properties = {
+      strokeStyle: strokeColor,
+      strokeWidth: thickness,
+      x: startX,
+      y: startY,
+      radius: r,
+      start: s,
+      end: e
+    }
+
+    this.canvas.drawArc(properties)
+  }
+
+  drawLimb (color, thickness, startX, startY, endX, endY) {
+    var properties = {
+      strokeStyle: color,
+      strokeWidth: thickness,
+      x1: startX,
+      y1: startY,
+      x2: endX,
+      y2: endY
+    }
+
+    this.canvas.drawLine(properties)
+  }
+
 }
 
 if (module) module.exports = HangmanView
