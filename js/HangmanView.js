@@ -56,14 +56,7 @@ class HangmanView {
     this.armYStart = this.bodyYStart + (this.bodyYEnd - this.bodyYStart) / 10
     this.armYEnd = this.height / 1.9
 
-    this.leftLimbConnecterXStart = this.leftLimbX
-    this.rightLimbConnecterXEnd = this.rightLimbX
-    this.legConnecterY = this.bodyYEnd
-    this.armConnecterY = this.armYStart
-    this.limbConnecterX = this.bodyX + this.bodyThickness / 2
-
     // face
-
     this.headRadius = this.width / 14
     this.headX = this.bodyX
     this.headY = this.height / 3.22

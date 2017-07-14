@@ -1,3 +1,5 @@
+const regEx = /^[a-zA-Z\-]+$/
+
 class HangmanModel {
 
   constructor () {
@@ -73,6 +75,14 @@ class HangmanModel {
     return this.incorrectGuesses === this.bodyPartsLength
   }
 
+  getType (elem) {
+    if (elem.match(regEx)) { return '_' } else if (elem.match(' ')) {
+      return '&nbsp'
+    } else {
+      return elem
+    }
+  }
+
   /*
   sets the word being played and initializes variables
   */
@@ -84,20 +94,12 @@ class HangmanModel {
     this.guesses = []
 
     this.guesses = wordArray.map((elem) => {
-      var regEx = /^[a-zA-Z\-]+$/
-
-      if (elem.match(regEx)) { return '_' } else if (elem.match(' ')) {
-        return '&nbsp'
-      } else {
-        return elem
-      }
+      return this.getType(elem)
     })
 
     var onlyLettersArray = wordArray.filter((elem) => {
-      var regEx = /^[a-zA-Z\-]+$/
       return elem.match(regEx)
     })
-
 
     this.length = onlyLettersArray.length
   }
