@@ -60,12 +60,11 @@ class WindowView {
   handleLetterClick (e) {
     $(e.target).css('color', 'gray')
 
-    // this.model.setGuess(e.target.outerText)
-
     if (this.model.checkGuess(e.target.outerText)) {
       this.renderGuesses()
 
-      if (this.model.wonGame()) { /* you won! */ }
+      if (this.model.wonGame()) {
+      alert('youWon') /* you won! */ }
     } else {
       this.hangman.removeBodyPart()
 
@@ -107,7 +106,7 @@ class WindowView {
     for (var i = 0; i < guesses.length; i++) {
       var $newSpan = $('<span></span>')
       $newSpan.attr('class', guesses[i].toUpperCase())
-      $newSpan.text(guesses[i] + ' ')
+      $newSpan.html(guesses[i] + ' ')
       this.displays.underscore.append($newSpan)
     }
   }

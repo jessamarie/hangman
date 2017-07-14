@@ -5,6 +5,10 @@ class HangmanView {
     this.model = model
     this.hangman = $('.hangman')
     this.canvas = $('<canvas></canvas>')
+    $(".audio").trigger('load')
+    // this.sounds = {
+    //   torture: '../audio/torture.mp3'
+    // }
     this.bodyParts = []
 
     this.resetDimensions()
@@ -82,9 +86,9 @@ class HangmanView {
     // rope
     this.ropeColor = 'brown'
     this.ropeThickness = 5
-    this.ropeLength = this.headX
     this.ropeStartX = this.stoolXStart + (this.stoolWidth / 2)
     this.ropeStartY = this.topYStart
+    this.ropeLength = this.height / 5
 
     this.nooseStartX = this.headX
     this.nooseStartY = this.headY + 4
@@ -140,10 +144,11 @@ class HangmanView {
 
   removeBodyPart () {
     this.bodyParts.pop()
+    $(".audio").trigger('play')
     this.draw()
   }
 
-  originalDraw() {
+  originalDraw () {
 
   }
 
@@ -224,14 +229,6 @@ class HangmanView {
   }
 
   drawBody () {
-    // this.drawLimb(
-    //   this.limbColor,
-    //   this.bodyThickness,
-    //   this.bodyX,
-    //   this.bodyYStart,
-    //   this.bodyX,
-    //   this.bodyYEnd)
-
     this.drawRectangle(
       this.bodyColor,
       this.stoolXStart,
@@ -242,17 +239,6 @@ class HangmanView {
   }
 
   drawLeftArm () {
-    // arm connecter
-
-    // TO DO MAKE ARCS
-    // this.drawLimb(
-    //   this.limbColor,
-    //   this.bodyThickness,
-    //   this.leftLimbConnecterXStart,
-    //   this.armConnecterY,
-    //   this.limbConnecterX,
-    //   this.armConnecterY)
-    // arm
     this.drawLimb(
       this.limbColor,
       this.bodyThickness,
@@ -263,15 +249,6 @@ class HangmanView {
   }
 
   drawRightArm () {
-    // arm connecter
-    // this.drawLimb(
-    //   this.limbColor,
-    //   this.bodyThickness,
-    //   this.limbConnecterX,
-    //   this.armConnecterY,
-    //   this.rightLimbConnecterXEnd,
-    //   this.armConnecterY)
-
     this.drawLimb(
       this.limbColor,
       this.bodyThickness,
@@ -282,15 +259,6 @@ class HangmanView {
   }
 
   drawLeftLeg () {
-    // leg connecter
-    // this.drawLimb(
-    //   this.limbColor,
-    //   this.bodyThickness,
-    //   this.leftLimbConnecterXStart,
-    //   this.legConnecterY,
-    //   this.limbConnecterX,
-    //   this.legConnecterY)
-
       // leg
     this.drawLimb(
       this.limbColor,
@@ -302,16 +270,6 @@ class HangmanView {
   }
 
   drawRightLeg () {
-    // leg connecter
-
-    // this.drawLimb(
-    //   this.limbColor,
-    //   this.bodyThickness,
-    //   this.limbConnecterX,
-    //   this.legConnecterY,
-    //   this.rightLimbConnecterXEnd,
-    //   this.legConnecterY)
-
       // leg
 
     this.drawLimb(
@@ -324,8 +282,6 @@ class HangmanView {
   }
 
   drawStool () {
-    // leg connecter
-
     // left leg
     this.drawRectangle(
       this.stoolColor,
