@@ -103,6 +103,7 @@ class WindowView {
 
     if (this.model.wonGame()) {
       this.playAudio($('.cheering'))
+      this.makeUnclickable(this.displays.letter)
     } else {
       // user cheering here and clapping above?
     }
@@ -113,6 +114,7 @@ class WindowView {
 
     if (this.model.lostGame()) {
       this.playAudio($('.decapitation'))
+      this.makeUnclickable(this.displays.letter)
     } else {
       this.playAudio($('.torture'))
     }
