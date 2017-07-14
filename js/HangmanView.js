@@ -6,6 +6,7 @@ class HangmanView {
     this.hangman = $('.hangman')
     this.canvas = $('<canvas></canvas>')
     this.bodyParts = []
+    this.currentBodyParts = []
 
     this.resetDimensions()
     this.listen()
@@ -92,6 +93,7 @@ class HangmanView {
     this.hangman.empty()
 
     this.bodyParts = []
+    this.currentBodyParts = []
 
     this.bodyParts.push(function () { self.drawStool() })
     this.bodyParts.push(function () { self.drawRope() })
@@ -106,6 +108,14 @@ class HangmanView {
     this.bodyParts.push(function () { self.drawLeftArm() })
 
     this.model.setBodyPartsLength(this.bodyParts.length)
+  }
+
+  setNormalGame () {
+    this.currentBodyParts = this.bodyParts.slice()
+  }
+
+  setOriginalGame () {
+    this.currentBodyParts = []
   }
 
   listen () {
@@ -136,12 +146,14 @@ class HangmanView {
   }
 
   removeBodyPart () {
-    this.bodyParts.pop()
+    this.currentBodyParts.pop()
     this.draw()
   }
 
-  originalDraw () {
-
+  addBodyPart () {
+    var fn = this.bodyParts.shift()
+    this.currentBodyParts.push(fn)
+    this.draw()
   }
 
   draw () {
@@ -149,8 +161,8 @@ class HangmanView {
 
     this.drawGallow()
 
-    for (var i = 0; i < this.bodyParts.length; i++) {
-      this.bodyParts[i]()
+    for (var i = 0; i < this.currentBodyParts.length; i++) {
+      this.currentBodyParts[i]()
     }
 
     this.hangman.append(this.canvas)

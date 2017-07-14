@@ -10,6 +10,11 @@ class WindowView {
   constructor (view, model) {
     this.model = model
     this.hangman = view
+    this.gameType = function () { this.hangman.removeBodyPart() } // default
+  }
+
+  setGameType (type) {
+    this.gameType = type
   }
 
   init () {
@@ -17,11 +22,9 @@ class WindowView {
     this.buttons = {
       playGame: $('.playGame'),
       instructions: $('.instructions'),
-      newGame: $('.newGame')
-
-      // later add
-      // .original button
-      // .normal button
+      newGame: $('.newGame'),
+      original: $('.original'),
+      normal: $('.normal')
     }
     this.displays = {
       display: $('.display'),
@@ -63,11 +66,11 @@ class WindowView {
   listen () {
     this.displays.letter.on('click', this.handleLetterClick.bind(this))
     this.input.keypress(this.handleWordEntry.bind(this))
+    this.buttons.normal.on('click', this.handleNormalGame.bind(this))
+    this.buttons.original.on('click', this.handleOriginalGame.bind(this))
     this.buttons.playGame.on('click', this.playGame.bind(this))
     this.buttons.newGame.on('click', this.playGame.bind(this))
     this.buttons.instructions.on('click', this.showTutorial.bind(this))
-    // add originalGame listener and handle function
-    // then create proper init in hangman view
   }
 
   makeUnclickable (elem) {
@@ -124,7 +127,7 @@ class WindowView {
   }
 
   badGuess () {
-    this.hangman.removeBodyPart()
+    this.gameType()
 
     if (this.model.lostGame()) {
       this.playAudio($('.decapitation'))
@@ -152,14 +155,43 @@ class WindowView {
     }
   }
 
+  handleNormalGame () {
+    if (this.setWordFromInput()) {
+      this.hangman.setNormalGame()
+
+      this.setupGame()
+    }
+  }
+
+  handleOriginalGame () {
+    if (this.setWordFromInput()) {
+      var type = function () { this.hangman.addBodyPart() }
+
+      this.setGameType(type)
+
+      this.hangman.setOriginalGame()
+
+      this.setupGame()
+    }
+  }
+
+  setWordFromInput () {
+    if (this.input.val() !== '') {
+      this.model.setWord(this.input.val())
+      this.input.val('') // clears input
+
+      return 1
+    } else {
+      return 0
+    }
+  }
+
   handleWordEntry (e) {
     if (e.which === enterKey) {
-      if (this.input.val() !== '') {
-        e.preventDefault()
+      e.preventDefault()
 
-        this.model.setWord(this.input.val())
-        this.input.val('') // clears input
-
+      if (this.setWordFromInput()) {
+        this.hangman.setNormalGame()
         this.setupGame()
       }
     }
@@ -179,12 +211,6 @@ class WindowView {
     this.showInput()
 
     this.hangman.initHangman()
-  }
-
-  /* This will be for the original hangman
-  game to be added */
-  playOriginalHangman () {
-
   }
 
   /* This replaces/adds one underscore on the viewport */
