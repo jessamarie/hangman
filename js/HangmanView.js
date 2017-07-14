@@ -15,7 +15,7 @@ class HangmanView {
 
   initVariables () {
     // gallows
-    this.gallowsColor = '#8B4513'
+    this.gallowsColor = '#A0522D'
     this.gallowXStart = 0
     this.platFormYOffset = (this.height / 10)
     this.platformYStart = this.height - this.platFormYOffset
@@ -80,7 +80,7 @@ class HangmanView {
     this.mouthAngleEnd = 90
 
     // rope
-    this.ropeColor = 'brown'
+    this.ropeColor = '#D2B48C'
     this.ropeThickness = 5
     this.ropeStartX = this.stoolXStart + (this.stoolWidth / 2)
     this.ropeStartY = this.topYStart
