@@ -6,32 +6,32 @@ class HangmanModel {
     this.guesses = []
     this.length = 0
     this.incorrectGuesses = 0
+    this.bodyPartsLength = 0
     this.correctGuesses = 0
+  }
+
+  setBodyPartsLength (length) {
+    this.bodyPartsLength = length
   }
 
   setGuess (letter) {
     this.guess = letter
   }
 
-  getGuess () {
-    return this.guess
-  }
-
-  checkGuess () {
-    var index = this.word.indexOf(this.getGuess())
+  checkGuess (guess) {
+    var index = this.word.indexOf(guess)
 
     if (index === -1) {
+      this.incorrectGuesses += 1
       return 0
     }
 
     while (index < this.word.length && index !== -1) {
-      console.log(this.word[index])
       this.revealLetter(index, this.word[index])
       index++
-      index = this.word.indexOf(this.getGuess(), index)
+      index = this.word.indexOf(guess, index)
     }
 
-    console.log(this.guesses)
     return 1
   }
 
@@ -49,11 +49,7 @@ class HangmanModel {
   }
 
   lostGame () {
-
-  }
-
-  getCorrectGuesses () {
-    return this.correctGuesses
+    return this.incorrectGuesses === this.bodyPartsLength
   }
 
   setWord (word) {
@@ -66,9 +62,6 @@ class HangmanModel {
     }
   }
 
-  getWord () {
-    return this.word
-  }
 }
 
 if (module) module.exports = HangmanModel

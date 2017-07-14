@@ -21,20 +21,15 @@ class WindowView {
       welcome: $('.welcome'),
       game: $('#game'),
       options: $('.options'),
-      score: $('.score'),
       letters: $('.letters'),
       underscore: $('.underscore')
     }
 
-    this.preRender()
+    this.renderLetters()
     this.displays.letter = $('.letter')
     this.listen()
-    this.postRender()
   }
 
-  preRender () {
-    this.renderLetters()
-  }
 
   renderLetters () {
     var alphabet = '-ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -42,11 +37,13 @@ class WindowView {
     for (var i = 1; i < alphabet.length; i++) {
       var $newRow = $('<div class="row"></div>')
 
-      while (i % 7 !== 0 && i !== 27) {
+      while (i !== 27) {
         var $newDiv = $('<div class="letter"></div>')
         $($newDiv).addClass(alphabet[i])
         $newDiv.text(alphabet[i])
         $newRow.append($newDiv)
+
+        if(i % 7 === 0) { break }
         i++
       }
       this.displays.letters.append($newRow)
@@ -63,16 +60,17 @@ class WindowView {
   handleLetterClick (e) {
     $(e.target).css('color', 'gray')
 
-    this.model.setGuess(e.target.outerText)
+    // this.model.setGuess(e.target.outerText)
 
-    if (this.model.checkGuess()) {
+    if (this.model.checkGuess(e.target.outerText)) {
       this.renderGuesses()
 
       if (this.model.wonGame()) { /* you won! */ }
     } else {
       this.hangman.removeBodyPart()
 
-      if (this.model.lostGame()) { /* You lost :( */ }
+      if (this.model.lostGame()) {
+      alert('youlost')/* You lost :( */ }
     }
   }
 
@@ -81,7 +79,7 @@ class WindowView {
       // TODO: error check if val() === empty
       e.preventDefault()
       this.displays.word.addClass('hide')
-      this.displays.underscore.removeClass('hide')
+      this.displays.game.removeClass('hide')
 
       /* TODO: make letters clickable */
       this.displays.letter.css('color', 'white')
@@ -98,7 +96,7 @@ class WindowView {
     /* TODO: make letters unclickable */
     this.displays.letter.css('color', 'white')
     this.displays.welcome.addClass('hide')
-    this.displays.underscore.addClass('hide')
+    this.displays.game.addClass('hide')
     this.displays.word.removeClass('hide')
   }
 
@@ -112,16 +110,6 @@ class WindowView {
       $newSpan.text(guesses[i] + ' ')
       this.displays.underscore.append($newSpan)
     }
-  }
-
-  renderHangman () {
-
-    // draw
-
-  }
-
-  postRender () {
-    // render score?
   }
 
 } // end class

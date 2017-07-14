@@ -107,6 +107,8 @@ class HangmanView {
     this.bodyParts.push(function () { self.drawRightLeg() })
     this.bodyParts.push(function () { self.drawRightArm() })
     this.bodyParts.push(function () { self.drawLeftArm() })
+
+    this.model.setBodyPartsLength(this.bodyParts.length)
   }
 
   listen () {
@@ -141,6 +143,10 @@ class HangmanView {
     this.draw()
   }
 
+  originalDraw() {
+
+  }
+
   draw () {
     this.resetDimensions()
 
@@ -161,17 +167,6 @@ class HangmanView {
       this.ropeThickness,
       this.ropeLength
     )
-
-    this.drawArc(
-      this.ropeColor,
-      this.ropeThickness,
-      this.nooseStartX,
-      this.nooseStartY,
-      this.nooseRadius,
-      this.nooseAngleStart,
-      this.nooseAngleEnd
-    )
-
   }
 
   drawMouth () {
@@ -215,6 +210,16 @@ class HangmanView {
       this.headX,
       this.headY,
       this.headRadius
+    )
+
+    this.drawArc(
+      this.ropeColor,
+      this.ropeThickness,
+      this.nooseStartX,
+      this.nooseStartY,
+      this.nooseRadius,
+      this.nooseAngleStart,
+      this.nooseAngleEnd
     )
   }
 
