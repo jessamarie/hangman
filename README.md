@@ -28,17 +28,17 @@ HTML5, CSS3, JQuery, and JCanvas
   + game page: hangman, letters, underscores, new game
   + tutorial page: show basic instructions
 + Sounds when body parts removed
-- The 'original' (more boring) hangman game.
-  - structure:
-    - on word page: a button for normal game
-    - and for original game
-  - Behavior:
-    - normal button leads to reverse hangman (already implemented)
-    - original button sets up following:
-      - hangman starts with gallows
-      - a body part is added upon an incorrect guess
-      - after all body parts added the player loses
-      - if the player gets all the letters before all
++ The 'original' (more boring) hangman game.
+  + structure:
+    + on word page: a button for normal game
+    + and for original game
+  + Behavior:
+    + normal button leads to reverse hangman (already implemented)
+    + original button sets up following:
+      + hangman starts with gallows
+      + a body part is added upon an incorrect guess
+      + after all body parts added the player loses
+      + if the player gets all the letters before all
         body parts are added the player wins
 
 # Gold Features
@@ -49,3 +49,5 @@ HTML5, CSS3, JQuery, and JCanvas
 - add scoring system
 - add animations
 - random words
+- Add timer-based scoring
+- Track scores across games (even if the page is reloaded)
