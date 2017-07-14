@@ -1,0 +1,43 @@
+/* color palette:
+BG: #99D3DF //ice
+Color: #FFFFF
+
+#88BBD6 // Fresh Water
+#CDCDCD //Plaster
+#E9E9E9 //Linen
+*/
+
+body {
+  background-color: #FFFFFF;
+  color: black;
+  font-family: 'Merriweather', serif;
+  text-align: center;
+}
+
+.underscore {
+  font-size: 4vw;
+}
+
+input[type='button'] {
+  background-color: white;
+  border: black 1px solid;
+}
+
+
+.letters{
+  font-size: 4vw;
+  font-family: 'Gochi Hand', cursive;
+  text-align: center;
+  color: white;
+  text-shadow: -1px -1px 0px #000000,
+  3px 3px 0px #000000,
+  6px 6px 0px #000000
+}
+
+.letter:hover {
+  background-color: #88BBD6;
+}
+
+.options p {
+  font-size: 1vw;
+}

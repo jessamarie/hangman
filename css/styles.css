@@ -1,20 +1,4 @@
-/* color palette:
-BG: #99D3DF //ice
-Color: #FFFFF
-
-#88BBD6 // Fresh Water
-#CDCDCD //Plaster
-#E9E9E9 //Linen
-*/
-
-/* remove later */
-div {
-  /*border: #E9E9E9 1px dashed;*/
-}
-/* remove later */
-
 body {
-  background-color: #99D3DF;
   min-height: 100vh;
   margin: 0 auto;
   justify-content: space-between;
@@ -22,35 +6,41 @@ body {
 
 .row {
   display: flex;
-  flex-direction: row;
+  flex-direction:  row;
 }
 
 .column {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 main {
-  padding: 50px 10px;
-  min-height: 100vh;
+  padding: 40px 20px;
 }
 
 .display {
+  justify-content: center;
   max-height: 50%;
+  /*margin: 10px;*/
 }
 
 .hangman {
-  min-width: 40%;
-  border: #E9E9E9 1px dashed;
+  min-width: 20%;
+}
+
+canvas {
+  border: black 1px solid;
 }
 
 .letters {
   align-items: center;
-  width: 60%;
+  width: 50%;
 }
 
 .letters div {
-  width: 100%;
+  margin: 0 auto;
+  width: 70%;
 }
 
 .letter {
@@ -59,22 +49,21 @@ main {
 
 .underscore {
   margin: 0 auto;
-  padding: 5vh;
+  padding: 50px 0;
 }
 
 .word, .welcome {
-  margin: 0 auto;
-  padding: 5vh;
+  margin: auto auto;
+}
+
+input[type='button'] {
+  width: 10%;
+  height: 10%;
 }
 
 .options {
-  height: 5vh;
-  align-self: flex-end;
-}
-
-.options input {
-  width: 100px;
-  height: 10px;
+  height: 5%;
+  padding: 10px;
 }
 
 .options * {

@@ -2,28 +2,38 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hangman</title>
+    <title>Reverse Hangman</title>
 
     <!-- styles -->
 <link href="https://fonts.googleapis.com/css?family=Gochi+Hand" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
-    <link rel="stylesheet" href="css/fonts.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="css/fonts-and-colors.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body class="column">
 
     <header>
-      <h1>Hangman</h1>
+      <h1>Reverse Hangman</h1>
     </header>
 
     <main>
+
+      <div class="welcome">
+        <input class='playGame' type="button" name="play game" value="Play Game">
+        <input class='instructions' type="button" name="instructions" value="Instructions">
+      </div>
+
+      <div class="word hide">
+        Pick A Word:
+        <input class='input' type="text" name="word" placeholder="Enter Word Here" value="word" autofocus>
+      </div>
 
       <div id="tutorial" class="hide">
         <!-- images with tutorial -->
       </div>
 
 
-      <div id="game">
+      <div id="game" class="hide">
 
         <div class="display row">
 
@@ -36,25 +46,13 @@
 
         </div>
 
-        <div class="row function">
-
-          <div class="welcome">
-            <input class='playGame' type="button" name="play game" value="Play Game">
-            <input class='instructions' type="button" name="instructions" value="Instructions">
-          </div>
-
-          <div class="word hide">
-            <input class='input' type="text" name="word" placeholder="Enter Word Here" value="word" autofocus>
-          </div>
-
+        <div class="row">
           <div class="underscore">
           </div>
-
-      </div>
+        </div>
 
       <div class="column options">
         <input class='newGame' type="button" name="newgame" value="New Game">
-        <p>Games won: <span class="score">0</span></p>
       </div>
 
     </main>
@@ -69,8 +67,13 @@
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
   crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/16.7.3/jcanvas.js"
+            integrity="sha256-bPB16BSDDnMGraNt5j8JSZhJbmZjIDYnJHKy2ruWcrs="
+            crossorigin="anonymous">
+    </script>
     <script src="js/HangmanModel.js" charset="utf-8"></script>
     <script src="js/HangmanView.js" charset="utf-8"></script>
+    <script src="js/WindowView.js" charset="utf-8"></script>
     <script src="js/script.js" charset="utf-8"></script>
 
 
