@@ -2,6 +2,7 @@ class HangmanModel {
 
   constructor () {
     this.word = ''
+    this.bodyPartsLength = 0
 
     this.init()
   }
@@ -10,7 +11,6 @@ class HangmanModel {
     this.guesses = []
     this.length = 0
     this.incorrectGuesses = 0
-    this.bodyPartsLength = 0
     this.correctGuesses = 0
   }
 
@@ -97,6 +97,7 @@ class HangmanModel {
       var regEx = /^[a-zA-Z\-]+$/
       return elem.match(regEx)
     })
+
 
     this.length = onlyLettersArray.length
   }

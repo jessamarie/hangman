@@ -28,8 +28,9 @@ class WindowView {
     this.renderLetters()
     this.displays.letter = $('.letter')
     this.listen()
-  }
 
+    $('.audio').trigger('load')
+  }
 
   renderLetters () {
     var alphabet = '-ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -43,7 +44,7 @@ class WindowView {
         $newDiv.text(alphabet[i])
         $newRow.append($newDiv)
 
-        if(i % 7 === 0) { break }
+        if (i % 7 === 0) { break }
         i++
       }
       this.displays.letters.append($newRow)
@@ -64,12 +65,16 @@ class WindowView {
       this.renderGuesses()
 
       if (this.model.wonGame()) {
-      alert('youWon') /* you won! */ }
+        $('.cheering').trigger('play')
+      }
     } else {
       this.hangman.removeBodyPart()
 
       if (this.model.lostGame()) {
-      alert('youlost')/* You lost :( */ }
+        $('.decapitation').trigger('play')
+      } else {
+        $('.torture').trigger('play')
+      }
     }
   }
 
@@ -97,6 +102,8 @@ class WindowView {
     this.displays.welcome.addClass('hide')
     this.displays.game.addClass('hide')
     this.displays.word.removeClass('hide')
+
+    this.hangman.initHangman()
   }
 
   renderGuesses () {

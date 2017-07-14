@@ -5,15 +5,11 @@ class HangmanView {
     this.model = model
     this.hangman = $('.hangman')
     this.canvas = $('<canvas></canvas>')
-    $(".audio").trigger('load')
-    // this.sounds = {
-    //   torture: '../audio/torture.mp3'
-    // }
     this.bodyParts = []
 
     this.resetDimensions()
     this.listen()
-    this.initBodyParts()
+    this.initHangman()
     this.initVariables()
   }
 
@@ -97,8 +93,12 @@ class HangmanView {
     this.nooseAngleEnd = 270
   }
 
-  initBodyParts () {
+  initHangman () {
     var self = this
+
+    this.hangman.empty()
+
+    this.bodyParts = []
 
     this.bodyParts.push(function () { self.drawStool() })
     this.bodyParts.push(function () { self.drawRope() })
@@ -144,7 +144,6 @@ class HangmanView {
 
   removeBodyPart () {
     this.bodyParts.pop()
-    $(".audio").trigger('play')
     this.draw()
   }
 
