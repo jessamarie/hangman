@@ -116,10 +116,10 @@ class WindowView {
     this.renderGuesses()
 
     if (this.model.wonGame()) {
-      this.playAudio($('.cheering'))
+      this.playAudio($('.clapping'))
       this.makeUnclickable(this.displays.letter)
     } else {
-      // user cheering here and clapping above?
+      this.playAudio($('.cheering'))
     }
   }
 
