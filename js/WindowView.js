@@ -25,7 +25,7 @@ class WindowView {
     }
     this.displays = {
       display: $('.display'),
-    //  tutorial: $('#tutorial'),
+      tutorial: $('#tutorial'),
       word: $('.word'),
       welcome: $('.welcome'),
       game: $('#game'),
@@ -65,7 +65,7 @@ class WindowView {
     this.input.keypress(this.handleWordEntry.bind(this))
     this.buttons.playGame.on('click', this.playGame.bind(this))
     this.buttons.newGame.on('click', this.playGame.bind(this))
-
+    this.buttons.instructions.on('click', this.showTutorial.bind(this))
     // add originalGame listener and handle function
     // then create proper init in hangman view
   }
@@ -80,21 +80,35 @@ class WindowView {
     elem.addClass('clickable')
   }
 
+  showTutorial () {
+    this.displays.word.addClass('hide')
+    this.displays.game.addClass('hide')
+
+    this.displays.tutorial.removeClass('hide')
+    this.displays.welcome.removeClass('hide')
+  }
+
   showGame () {
     this.displays.word.addClass('hide')
-    this.displays.game.removeClass('hide')
     this.displays.welcome.addClass('hide')
+    this.displays.tutorial.addClass('hide')
+
+    this.displays.game.removeClass('hide')
   }
 
   showWelcome (elem) {
     this.displays.word.addClass('hide')
     this.displays.game.addClass('hide')
+    this.displays.tutorial.addClass('hide')
+
     this.displays.welcome.removeClass('hide')
   }
 
   showInput (elem) {
     this.displays.welcome.addClass('hide')
     this.displays.game.addClass('hide')
+    this.displays.tutorial.addClass('hide')
+
     this.displays.word.removeClass('hide')
   }
 
