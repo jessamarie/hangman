@@ -30,15 +30,23 @@ input[type='button'] {
   font-size: 3vw;
   font-family: 'Zilla Slab', serif;
   text-align: center;
-  color: black;
   /*text-shadow: -1px -1px 0px #000000,
   3px 3px 0px #000000,
   6px 6px 0px #000000*/
 }
 
-.letter:hover {
-  background-color: #88BBD6;
+.clickable {
   color: black;
+  pointer-events: auto;
+}
+
+.unclickable {
+  color: gray;
+  pointer-events: none;
+}
+
+.letter:hover {
+  color: #E9E9E9;
 }
 
 .options p {
