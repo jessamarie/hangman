@@ -48,6 +48,7 @@ HTML5, CSS3, JQuery, and JCanvas
 - add tutorial images
 - add scoring system
 - add animations
-- random words
++ random words
 - Add timer-based scoring
 - Track scores across games (even if the page is reloaded)
+- add tests

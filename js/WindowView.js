@@ -4,6 +4,15 @@ const alphabet = '-ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const lettersPerRow = 5
 const reset = 0
 const enterKey = 13
+const randomList = [
+  'elephant',
+  'hangman',
+  'wdi',
+  'awesome',
+  'jessa',
+  'javascript',
+  'washington',
+  'virginia']
 
 class WindowView {
 
@@ -24,7 +33,9 @@ class WindowView {
       instructions: $('.instructions'),
       newGame: $('.newGame'),
       original: $('.original'),
-      normal: $('.normal')
+      normal: $('.normal'),
+      random: $('.random')
+
     }
     this.displays = {
       display: $('.display'),
@@ -71,6 +82,7 @@ class WindowView {
     this.buttons.playGame.on('click', this.playGame.bind(this))
     this.buttons.newGame.on('click', this.playGame.bind(this))
     this.buttons.instructions.on('click', this.showTutorial.bind(this))
+    this.buttons.random.on('click', this.getRandomWord.bind(this))
   }
 
   makeUnclickable (elem) {
@@ -195,6 +207,18 @@ class WindowView {
         this.setupGame()
       }
     }
+  }
+
+  setWordFromList (index) {
+    this.model.setWord(randomList[index])
+    this.input.val('') // clears input just in case
+  }
+
+  getRandomWord (e) {
+    var rand = Math.floor(Math.random() * randomList.length)
+    this.setWordFromList(rand)
+    this.hangman.setNormalGame()
+    this.setupGame()
   }
 
   setupGame () {
