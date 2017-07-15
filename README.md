@@ -1,51 +1,29 @@
-# Reverse hangman
-A game developed for WDI Project 1, reverse hangman puts a twist on the original hangman game. Instead of adding body parts every time the player guesses incorrectly, you are already hanging and body parts are cut off! Woah.
+Reverse Hangman
+===============
 
-# languages used
+A game I developed as a project for my web immersive course at GA, *Reverse Hangman* is a twist on the original Hangman. (I dare say, that to myself it was the original because that was how I had played it my whole life!). I had so much fun, that I have decided to continue working on this project and create many fun new themes for all to enjoy!
+
+The Twist
+---------
+
+Instead of adding body parts every time the player guesses incorrectly, you are already hanging and body parts are dismembered! Try to save the man before it's too late. Woah. Additionally there is an *original game* feature for those that are a little squeamish. Enjoy!
+
+Technologies Used
+-----------------
 HTML5, CSS3, JQuery, and JCanvas
 
-# Bronze Features (+ = features added, - = yet to be implemented)
-+ Structure:
-  + Hangman
-  + Word Rendering
-  + Letters
-+ Basic styling
-+ Behavior:
-  + The play game, and new game buttons work
-  + The input box retrieves a word from the player
-  + A letter click results in one of two cases:
-    + The letter is correct and re-renders the word
-    + The letter is incorrect and cuts off a body part
-  + Letters become unclickable after first click and last move
-  + Correct word logic
-    + Words with spaces
-    + Words with repeat letters
+Current Features
+----------------
++ Welcome Screen
++ Game Screen
++ Reverse game
++ Original Game
++ Random Word
++ Custom Word
++ Sound Effects
 
-# Silver Features
-+ Hide-Show elements in Structure
-  + Opening page: playGame/tutorial
-  + choose word page: single input body
-  + game page: hangman, letters, underscores, new game
-  + tutorial page: show basic instructions
-+ Sounds when body parts removed
-- The 'original' (more boring) hangman game.
-  - structure:
-    - on word page: a button for normal game
-    - and for original game
-  - Behavior:
-    - normal button leads to reverse hangman (already implemented)
-    - original button sets up following:
-      - hangman starts with gallows
-      - a body part is added upon an incorrect guess
-      - after all body parts added the player loses
-      - if the player gets all the letters before all
-        body parts are added the player wins
+Feedback Welcome
+----------------
+Please feel free to leave any feedback or suggestions by creating an issue in this repo. It will help me make the game more enjoyable for you!
 
-# Gold Features
-- add background music w/ mute button
-  - make mute button for ALL audio
-  - make mute button for bg music only
-- add tutorial images
-- add scoring system
-- add animations
-- random words
+For additional information please see the [DOCS](https://github.com/jessamarie/hangman/Docs)
