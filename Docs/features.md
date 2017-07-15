@@ -64,6 +64,7 @@ Gold Features
     - [ ] *bg mute/unmute* button
     - [ ] *sound effect mute/unmute* button
     - [x] *Get Random Word* Button
+    - [ ] Add github repo with logo
   - [x] **Game Screen**
   - [ ] **Tutorial Screen**
     - [ ] add images
