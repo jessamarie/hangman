@@ -15,7 +15,7 @@ body {
 
 header, h2 { text-transform: uppercase; }
 
-.underscore { font-size: 4vw; }
+.underscore { font-size: 3vw; }
 
 input[type='button'] {
   background-color: #FFFFFF;
@@ -23,7 +23,7 @@ input[type='button'] {
 }
 
 .letters{
-  font-size: 3vw;
+  font-size: 2vw;
   text-align: center;
 }
 
