@@ -1,16 +1,15 @@
 const regEx = /^[a-zA-Z\-]+$/
 const randomList = [
-  'elephant',
-  'hangman',
-  'Mary Poppins',
-  'awesome',
-  'jessa',
-  'Wonder Woman',
-  'friendly',
-  'coffee',
-  'java',
-  'washington',
-  'virginia']
+  'elephant', 'hangman', 'Mary Poppins', 'awesome', 'jessa', 'mockingbird',
+  'the hills are alive with the sound of music', 'Wonder Woman', 'friendly',
+  'coffee', 'java', 'washington', 'chocolate ice cream', 'hungry', 'I need food',
+  'virginia', 'electronic', 'pie', 'smores', 'jesus', 'I am so tired', 'eggs',
+  'I like chocolate milkshakes', 'Are we there yet?', 'Ivory', 'Pajamas', 'Kayak',
+  'Apples', 'Happy', 'Covfefe', 'Zombie', 'Banjo', 'doc mcstuffins', 'ouch!',
+  'coding is fun', 'flabbergasted', 'This is torture', 'diligence', 'Hot Dog',
+  'perserverance', 'appearance', 'languages', 'Goofy', 'Hamburger', 'Money',
+  'Feed two birds with one worm'
+]
 
 class HangmanModel {
 
