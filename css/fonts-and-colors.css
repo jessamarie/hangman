@@ -1,5 +1,5 @@
 /* color palette:
-BG: #99D3DF //ice
+#FFFFFF // white
 #88BBD6 // Fresh Water
 #CDCDCD //Plaster
 #E9E9E9 //Linen
@@ -18,7 +18,7 @@ header, h2 { text-transform: uppercase; }
 .underscore { font-size: 4vw; }
 
 input[type='button'] {
-  background-color: white;
+  background-color: #FFFFFF;
   border: black 1px solid;
 }
 
@@ -27,13 +27,11 @@ input[type='button'] {
   text-align: center;
 }
 
-.clickable {
-  color: black;
-  pointer-events: auto;
-}
-
 .unclickable {
   color: gray;
+  /* Pointer-Events is not validated by w3,
+  but still works for the intended purpose of
+  preventing a click event */
   pointer-events: none;
 }
 

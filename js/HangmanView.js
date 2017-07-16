@@ -11,6 +11,7 @@ class HangmanView {
     this.resetDimensions()
     this.listen()
     this.initHangman()
+    this.setRe
     this.initVariables()
   }
 
@@ -110,11 +111,11 @@ class HangmanView {
     this.model.setBodyPartsLength(this.bodyParts.length)
   }
 
-  setNormalGame () {
+  setReverseMode () {
     this.currentBodyParts = this.bodyParts.slice()
   }
 
-  setOriginalGame () {
+  setForwardMode () {
     this.currentBodyParts = []
   }
 
