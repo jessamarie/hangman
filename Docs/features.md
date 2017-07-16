@@ -59,11 +59,10 @@ Gold Features
 -------------
 - [ ] **Structure & Styling**
   - [ ] **Welcome Screen**
-    - [ ] *Custom* or *Random* word 'option' group
-    - [ ] *Game Type* option group
+    - [x] *Custom* or *Random* word 'option' group
+    - [x] *Game Type* option group
     - [ ] *bg mute/unmute* button
     - [ ] *sound effect mute/unmute* button
-    - [x] *Get Random Word* Button
     - [ ] Add github repo with logo
   - [x] **Game Screen**
   - [ ] **Tutorial Screen**
@@ -71,16 +70,15 @@ Gold Features
   - [ ] mobile friendly viewport
 - [ ] **Behavior:**
   - [ ] **Game Setup**
-    - [ ] They can choose *Custom* or *Random*
-      - [ ] input box displays if custom
-    - [ ] They can choose the game type
-      - [ ] currently *normal* or *original*
-      - [ ] Lastly they click play game
+    - [x] player can choose *Custom* or *Random*
+      - [x] input box displays if custom
+    - [x] player can choose the game type
+      - [x] currently *reverse* or *original*
+      - [x] Lastly player click play game
   - [ ] ** audio **
     - [ ] bg music plays on welcome Screen
     - [ ] appropriate audio mutes/unmutes when player clicks button
-  - [x] **Buttons:**
-    - [x] Games starts with Random Word when player clicks *Get Random Word*
+
 
 Refactoring Plans
 -----------------
@@ -98,3 +96,7 @@ Features Under Consideration/Planning
 
 Features to remove/removed
 --------------------------
+- [x] **Buttons:**
+  - [x] Games starts with Random Word when player clicks *Get Random Word*
+- [x] Transition from welcome to word entry screen
+- [x] All buttons start game
