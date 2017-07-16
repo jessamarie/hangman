@@ -1,5 +1,7 @@
 body {
   min-height: 100vh;
+  height:100%;
+  width:100%;
   margin: 0 auto;
   justify-content: space-between;
 }
@@ -12,31 +14,31 @@ body {
 .column {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-p {
-  padding: 5px 0;
+header, footer {
+  width: 100%;
+  line-height: 30px;
 }
+
+footer { min-height: 1vh; }
+
+header { min-height: 10vh; }
 
 main {
   padding: 40px 20px;
-  height: 100%;
+  min-height: 60vh;
+  height: 100%
 }
 
 .display {
   justify-content: center;
   max-height: 50%;
-  /*margin: 10px;*/
 }
 
-.hangman {
-  min-width: 20%;
-}
+.hangman { min-width: 20%; }
 
-canvas {
-  border: black 1px solid;
-}
+canvas { border: black 1px solid; }
 
 .letters {
   margin: auto 0;
@@ -50,25 +52,15 @@ canvas {
   width: 70%;
 }
 
-.letter {
-  max-width: 100%;
-}
+.letter { max-width: 100%;}
 
 .underscore {
   margin: 0 auto;
   padding: 50px 0;
 }
 
-.word, .welcome {
-  margin: auto auto;
-}
-
-input[type='button'] {
-  width: 10%;
-  height: 10%;
-}
-
 .options {
+  justify-content: space-between;
   height: 5%;
   padding: 10px;
 }
@@ -77,22 +69,27 @@ input[type='button'] {
   margin: 0 auto;
 }
 
-
-header, footer {
-  width: 100%;
-  background: rgb(233,233,233);
-  background: rgba(233,233,233, .1);
-  line-height: 30px;
+.welcome {
+  align-items: center;
+  justify-content: center;
+  min-height: inherit;
 }
 
-footer {
-  height: 30px;
+.welcome * {
+  margin: 10px 15px;
+  padding: 2px 0;
 }
 
-header {
-  height: 50px;
+.welcome p, #tutorial p {
+  min-width: 300px;
+  font-size: 14px;
 }
 
-.hide {
-  display: none
+.input { width: 260px; }
+
+input {
+  width: 120px;
+  height: 20px;
 }
+
+.hide { display: none }

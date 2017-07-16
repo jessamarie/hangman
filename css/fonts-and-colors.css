@@ -1,7 +1,5 @@
 /* color palette:
 BG: #99D3DF //ice
-Color: #FFFFF
-
 #88BBD6 // Fresh Water
 #CDCDCD //Plaster
 #E9E9E9 //Linen
@@ -9,30 +7,24 @@ Color: #FFFFF
 
 body {
   background-color: #FFFFFF;
-  text-transform: uppercase;
   color: black;
   border: black 1px solid;
-  font-family: 'Merriweather', serif;
+  font-family: 'Zilla Slab', serif;
   text-align: center;
 }
 
-.underscore {
-  font-size: 4vw;
-}
+header, h2 { text-transform: uppercase; }
+
+.underscore { font-size: 4vw; }
 
 input[type='button'] {
   background-color: white;
   border: black 1px solid;
 }
 
-
 .letters{
   font-size: 3vw;
-  font-family: 'Zilla Slab', serif;
   text-align: center;
-  /*text-shadow: -1px -1px 0px #000000,
-  3px 3px 0px #000000,
-  6px 6px 0px #000000*/
 }
 
 .clickable {
@@ -45,10 +37,4 @@ input[type='button'] {
   pointer-events: none;
 }
 
-.letter:hover {
-  color: #E9E9E9;
-}
-
-.options p {
-  font-size: 1vw;
-}
+.letter:hover { color: #E9E9E9; }
