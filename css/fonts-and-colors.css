@@ -1,7 +1,5 @@
 /* color palette:
-BG: #99D3DF //ice
-Color: #FFFFF
-
+#FFFFFF // white
 #88BBD6 // Fresh Water
 #CDCDCD //Plaster
 #E9E9E9 //Linen
@@ -9,46 +7,34 @@ Color: #FFFFF
 
 body {
   background-color: #FFFFFF;
-  text-transform: uppercase;
   color: black;
   border: black 1px solid;
-  font-family: 'Merriweather', serif;
+  font-family: 'Zilla Slab', serif;
   text-align: center;
 }
 
-.underscore {
-  font-size: 4vw;
-}
+header, h2 { text-transform: uppercase; }
+
+.underscore { font-size: 4vw; }
 
 input[type='button'] {
-  background-color: white;
+  background-color: #FFFFFF;
   border: black 1px solid;
 }
-
 
 .letters{
   font-size: 3vw;
-  font-family: 'Zilla Slab', serif;
   text-align: center;
-  /*text-shadow: -1px -1px 0px #000000,
-  3px 3px 0px #000000,
-  6px 6px 0px #000000*/
-}
-
-.clickable {
-  color: black;
-  pointer-events: auto;
 }
 
 .unclickable {
   color: gray;
+  /* Pointer-Events is not validated by w3,
+  but still works for the intended purpose of
+  preventing a click event */
   pointer-events: none;
 }
 
-.letter:hover {
-  color: #E9E9E9;
-}
+.letter:hover { color: #E9E9E9; }
 
-.options p {
-  font-size: 1vw;
-}
+a { color: black; }

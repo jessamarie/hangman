@@ -1,10 +1,23 @@
 const regEx = /^[a-zA-Z\-]+$/
+const randomList = [
+  'elephant',
+  'hangman',
+  'Mary Poppins',
+  'awesome',
+  'jessa',
+  'Wonder Woman',
+  'friendly',
+  'coffee',
+  'java',
+  'washington',
+  'virginia']
 
 class HangmanModel {
 
   constructor () {
-    this.word = ''
+    this.word = this.getRandomWord()
     this.bodyPartsLength = 0
+    this.mode = 'reverse' // default
 
     this.init()
   }
@@ -22,6 +35,21 @@ class HangmanModel {
   */
   setBodyPartsLength (length) {
     this.bodyPartsLength = length
+  }
+
+  /*
+    sets the game mode (reverse or original)
+  */
+  getMode () {
+    if (this.mode === 'reverse') {
+      return function (scope) { scope.removeBodyPart() } // default
+    } else if (this.mode === 'forward') {
+      return function (scope) { scope.addBodyPart() } // default
+    }
+  }
+
+  setMode (mode) {
+    this.mode = mode
   }
 
   /*
@@ -102,6 +130,19 @@ class HangmanModel {
     })
 
     this.length = onlyLettersArray.length
+  }
+
+/* returns a random word from the randomList */
+  getRandomWord () {
+    var index = Math.floor(Math.random() * randomList.length)
+
+    return randomList[index]
+  }
+
+/* sets the word from the randomList */
+  setRandomWord () {
+    this.word = this.getRandomWord()
+    return this.word
   }
 
 }

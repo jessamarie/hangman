@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>Reverse Hangman</title>
 
+    <!-- font awesome cdn -->
+<script src="https://use.fontawesome.com/42cf8c2449.js"></script>
     <!-- styles -->
-<link href="https://fonts.googleapis.com/css?family=Gochi+Hand" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/size_and_positioning.css">
 <link rel="stylesheet" href="css/fonts-and-colors.css">
   </head>
   <body class="column">
@@ -31,28 +32,34 @@
          <source src="audio/cheering.mp3" type="audio/mp3">
       </audio>
 
-
       <audio class="decapitation" preload="none">
          <source src="audio/decapitation.mp3" type="audio/mp3">
       </audio>
 
-      <div class="welcome">
-        <input class='playGame' type="button" name="play game" value="Play Game">
-        <input class='instructions' type="button" name="instructions" value="Instructions">
-      </div>
+      <div class="welcome column">
+        <h2>Welcome</h2>
+        <p>Setup the game, or just play the default!</p>
 
-      <div class="word hide">
-        <p>Pick A Word:<p>
-        <input class='input' type="text" name="word" placeholder="Enter Word Here" value="hangman" autofocus>
-        <input class='random' type="button" name="random" value="Get Random">
-        <div>
-          <input class='normal' type="button" name="normal" value="Play Normal">
-          <input class='original' type="button" name="normal" value="Play Original">
+        <div class="inputType row">
+          <input class='custom' type="button" name="custom" value="Custom Word">
+          <input class='random' type="button" name="random" value="Random Word">
         </div>
+
+        <input class="input row hide" type="text" name="guess"
+               placeholder="Enter A Custom Word" value="" autofocus>
+
+       <div class="gameType row">
+         <input class='reverse' type="button" name="reverse" value="Reverse Mode">
+         <input class='forward' type="button" name="forward" value="Original Mode">
+       </div>
+
+        <input class="play" type="button" name="play game" value="Play">
+
+        <input class="instructions" type="button" name="instructions" value="Tutorial">
       </div>
 
       <div id="tutorial" class="hide">
-        <p>This is the tutorial!<p>
+        <p>For a fun experience play in <b>Reverse Mode</b> first!<p>
       </div>
 
 
@@ -82,7 +89,12 @@
   </main>
 
 
-  <footer>Made with &hearts; by Jessa!</footer>
+  <footer>
+    <p>Made with &hearts; by Jessa!
+      <a href="https://github.com/jessamarie/hangman" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+    </p>
+
+  </footer>
 
 
 <!-- Scripts -->

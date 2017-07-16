@@ -3,57 +3,50 @@
 const alphabet = '-ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const lettersPerRow = 5
 const reset = 0
-const enterKey = 13
-const randomList = [
-  'elephant',
-  'hangman',
-  'wdi',
-  'awesome',
-  'jessa',
-  'javascript',
-  'washington',
-  'virginia']
 
 class WindowView {
 
   constructor (view, model) {
     this.model = model
     this.hangman = view
-    this.gameType = function () { this.hangman.removeBodyPart() } // default
   }
 
-  setGameType (type) {
-    this.gameType = type
-  }
-
+  /* init  */
   init () {
     this.input = $('.input')
     this.buttons = {
-      playGame: $('.playGame'),
+      play: $('.play'),
       instructions: $('.instructions'),
       newGame: $('.newGame'),
-      original: $('.original'),
-      normal: $('.normal'),
+      forward: $('.forward'),
+      reverse: $('.reverse'),
+      custom: $('.custom'),
       random: $('.random')
-
     }
+
     this.displays = {
       display: $('.display'),
       tutorial: $('#tutorial'),
-      word: $('.word'),
       welcome: $('.welcome'),
       game: $('#game'),
       letters: $('.letters'),
       underscore: $('.underscore')
     }
 
+    this.renderLetters()
+    this.displays.letter = $('.letter')
+
+    this.listen()
     this.initGame()
   }
 
+  /* initializes the game back to square zero */
   initGame () {
-    this.renderLetters()
-    this.displays.letter = $('.letter')
-    this.listen()
+    this.makeClickable(this.displays.letter)
+    this.hangman.initHangman()
+    this.setReverseMode()
+    this.setRandomWord()
+
     $('.audio').trigger('load')
   }
 
@@ -74,59 +67,70 @@ class WindowView {
     }
   }
 
+  /* Adds all event listeners for the game */
   listen () {
     this.displays.letter.on('click', this.handleLetterClick.bind(this))
-    this.input.keypress(this.handleWordEntry.bind(this))
-    this.buttons.normal.on('click', this.handleNormalGame.bind(this))
-    this.buttons.original.on('click', this.handleOriginalGame.bind(this))
-    this.buttons.playGame.on('click', this.playGame.bind(this))
-    this.buttons.newGame.on('click', this.playGame.bind(this))
+
+    this.buttons.custom.on('click', this.getCustomWord.bind(this))
+    this.buttons.random.on('click', this.setRandomWord.bind(this))
+
+    this.buttons.reverse.on('click', this.setReverseMode.bind(this))
+    this.buttons.forward.on('click', this.setForwardMode.bind(this))
+
+    this.buttons.play.on('click', this.play.bind(this))
+    this.buttons.newGame.on('click', this.reset.bind(this))
+
     this.buttons.instructions.on('click', this.showTutorial.bind(this))
-    this.buttons.random.on('click', this.getRandomWord.bind(this))
   }
 
+/* renders an item unclickable */
   makeUnclickable (elem) {
-    elem.removeClass('clickable')
     elem.addClass('unclickable')
   }
 
+/* renders an item clickable */
   makeClickable (elem) {
     elem.removeClass('unclickable')
-    elem.addClass('clickable')
   }
 
+/* toggle buttons that are clicked */
+  switchButtons (clicked, unclicked) {
+    this.makeUnclickable(clicked)
+    this.makeClickable(unclicked)
+    clicked.css('background-color', '#E9E9E9')
+    unclicked.css('background-color', 'white')
+  }
+
+  /* shows the tutorial */
   showTutorial () {
-    this.displays.word.addClass('hide')
-    this.displays.game.addClass('hide')
-
     this.displays.tutorial.removeClass('hide')
-    this.displays.welcome.removeClass('hide')
   }
 
+  /* shows the game page */
   showGame () {
-    this.displays.word.addClass('hide')
     this.displays.welcome.addClass('hide')
     this.displays.tutorial.addClass('hide')
-
+    this.input.addClass('hide')
     this.displays.game.removeClass('hide')
   }
 
-  showWelcome (elem) {
-    this.displays.word.addClass('hide')
+  /* shows the welcome page */
+  showWelcome () {
     this.displays.game.addClass('hide')
-    this.displays.tutorial.addClass('hide')
-
     this.displays.welcome.removeClass('hide')
   }
 
-  showInput (elem) {
-    this.displays.welcome.addClass('hide')
-    this.displays.game.addClass('hide')
-    this.displays.tutorial.addClass('hide')
-
-    this.displays.word.removeClass('hide')
+  /* shows the custom input box */
+  showInput () {
+    this.input.removeClass('hide')
   }
 
+  /* hides the custom input box */
+  hideInput () {
+    this.input.addClass('hide')
+  }
+
+  /* Runs if the player made a good guess */
   goodGuess () {
     this.renderGuesses()
 
@@ -138,8 +142,10 @@ class WindowView {
     }
   }
 
+  /* Runs if the player made a bad guess */
   badGuess () {
-    this.gameType()
+    var doPenalty = this.model.getMode()
+    doPenalty(this.hangman)
 
     if (this.model.lostGame()) {
       this.playAudio($('.decapitation'))
@@ -167,74 +173,48 @@ class WindowView {
     }
   }
 
-  handleNormalGame () {
-    if (this.setWordFromInput()) {
-      this.hangman.setNormalGame()
-
-      this.setupGame()
-    }
+  /* The mode is set to reverse mode */
+  setReverseMode () {
+    this.model.setMode('reverse')
+    this.hangman.setReverseMode()
+    this.switchButtons(this.buttons.reverse, this.buttons.forward)
   }
 
-  handleOriginalGame () {
-    if (this.setWordFromInput()) {
-      var type = function () { this.hangman.addBodyPart() }
-
-      this.setGameType(type)
-
-      this.hangman.setOriginalGame()
-
-      this.setupGame()
-    }
+  /* The mode is set to forward mode */
+  setForwardMode () {
+    this.model.setMode('forward')
+    this.hangman.setForwardMode()
+    this.switchButtons(this.buttons.forward, this.buttons.reverse)
   }
 
-  setWordFromInput () {
-    if (this.input.val() !== '') {
-      this.model.setWord(this.input.val())
-      this.input.val('') // clears input
-
-      return 1
-    } else {
-      return 0
-    }
+  /* Lets the user enter a custom word */
+  getCustomWord () {
+    this.input.val('')
+    this.showInput()
+    this.switchButtons(this.buttons.custom, this.buttons.random)
   }
 
-  handleWordEntry (e) {
-    if (e.which === enterKey) {
-      e.preventDefault()
-
-      if (this.setWordFromInput()) {
-        this.hangman.setNormalGame()
-        this.setupGame()
-      }
-    }
+  /* The game chooses a random word for the user */
+  setRandomWord () {
+    this.hideInput()
+    this.switchButtons(this.buttons.random, this.buttons.custom)
+    this.input.val(this.model.setRandomWord())
   }
 
-  setWordFromList (index) {
-    this.model.setWord(randomList[index])
-    this.input.val('') // clears input just in case
-  }
-
-  getRandomWord (e) {
-    var rand = Math.floor(Math.random() * randomList.length)
-    this.setWordFromList(rand)
-    this.hangman.setNormalGame()
-    this.setupGame()
-  }
-
-  setupGame () {
-    this.showGame()
-
+  /* plays the game */
+  play () {
+    this.model.setWord(this.input.val())
     this.renderGuesses()
-
+    this.showGame()
     this.hangman.resizeCanvas()
   }
 
-  playGame () {
-    this.makeClickable(this.displays.letter)
-
-    this.showInput()
-
-    this.hangman.initHangman()
+/* returns the player to the welcome Screen
+    and resets game play
+*/
+  reset () {
+    this.showWelcome()
+    this.initGame()
   }
 
   /* This replaces/adds one underscore on the viewport */
