@@ -15,7 +15,10 @@ body {
 
 header, h2 { text-transform: uppercase; }
 
-.underscore { font-size: 3vw; }
+.underscore {
+  /* Subjective change to phrase font size */
+  font-size: 6vw;
+}
 
 input[type='button'] {
   background-color: #FFFFFF;
@@ -23,7 +26,10 @@ input[type='button'] {
 }
 
 .letters{
-  font-size: 2vw;
+  /* Leaving the native font-size seems to work better here to my eye,
+     but this is subjective */
+  /* font-size: 2vw; */
+
   text-align: center;
 }
 

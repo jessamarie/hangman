@@ -10,8 +10,14 @@ class HangmanView {
 
     this.resetDimensions()
     this.listen()
-    this.initHangman()
-    this.setRe
+
+    // It looks like `this.initHangman()` and `this.setReverseMode()` are
+    // redundant since they gets called via a nested set of functions
+    // calls kicked off by `WindowView.init`
+
+    // this.initHangman()
+    // this.setRe
+    // Was the above line meant to be `this.setReverseMode()`?
     this.initVariables()
   }
 
@@ -141,6 +147,7 @@ class HangmanView {
     this.canvas.attr('height', 0)
 
     this.setDimensions()
+    console.log('x,y: ', this.width, this.height)
 
     this.canvas.attr('width', this.width)
     this.canvas.attr('height', this.height)
@@ -398,4 +405,15 @@ class HangmanView {
 
 }
 
-if (module) module.exports = HangmanView
+// if (module) module.exports = HangmanView
+
+// Leaving the above line generates an error:
+// `Uncaught ReferenceError: module is not defined`
+
+// We need to test for `module` in a was that won't fail with an error if the
+// if the variable doesn't yet exist. `typeof` can act on undeclared variables.
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = HangmanView
+} else {
+  window.HangmanView = HangmanView
+}

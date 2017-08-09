@@ -238,4 +238,15 @@ class WindowView {
 
 } // end class
 
-if (module) module.exports = WindowView
+// if (module) module.exports = WindowView
+
+// Leaving the above line generates an error:
+// `Uncaught ReferenceError: module is not defined`
+
+// We need to test for `module` in a was that won't fail with an error if the
+// if the variable doesn't yet exist. `typeof` can act on undeclared variables.
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = WindowView
+} else {
+  window.WindowView = WindowView
+}

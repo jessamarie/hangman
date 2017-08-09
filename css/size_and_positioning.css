@@ -36,7 +36,24 @@ main {
   max-height: 40%;
 }
 
-.hangman { min-width: 20%; min-height: 40vh; }
+/*
+  Rearranged the 3 main game components into a flex div `div.gamearea` so that
+  the items can responsively flow between a desktop and mobile view
+*/
+.gamearea {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 120vh;
+}
+
+.gamearea div {
+  width: 60vh;
+}
+
+.gamearea .hangman { min-width: 20%; min-height: 40vh; width: 60vh; height: 60vh;}
 
 canvas { border: black 1px solid; }
 
@@ -90,3 +107,17 @@ input { width: 120px; height: 20px; }
 .input { width: 260px; height: 15px;  }
 
 .hide { display: none }
+
+@media screen and (max-width: 650px){
+  /* Alter the Hangman display size when our screen size gets smaller */
+  .gamearea .hangman { width: 40vh; height: 40vh;}
+
+  /* Swap order of letter bank and phrase area */
+  .wordbox {
+    order: 1;
+  }
+
+  .alphabetbox {
+    order: 2;
+  }
+}

@@ -85,21 +85,27 @@
 
 
       <div id="game" class="hide">
-
-        <div class="display row">
-
-          <div class="hangman">
-            <!-- draw hangman here! -->
+        <!--
+          Rearranged the 3 main game components into a flex div `div.gamearea` so that
+          the items can responsively flow between a desktop and mobile view
+        -->
+        <div class="gamearea">
+          <div class="display hangman">
+              <!-- draw hangman here! -->
           </div>
 
-          <div class="letters">
+          <div class="alphabetbox display row">
+
+            <div class="letters">
+            </div>
+
           </div>
 
-        </div>
-
-        <div class="row">
-          <div class="underscore">
+          <div class="wordbox row">
+            <div class="underscore">
+            </div>
           </div>
+
         </div>
 
       <div class="column options">
