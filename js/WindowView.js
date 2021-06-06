@@ -238,4 +238,8 @@ class WindowView {
 
 } // end class
 
-if (module) module.exports = WindowView
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = WindowView
+} else {
+  window.WindowView = WindowView
+}
