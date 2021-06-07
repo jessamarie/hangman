@@ -73,11 +73,25 @@ class HangmanModel {
     return 1
   }
 
+  /* Reveals answer at the end of game  */
+  revealAnswer () {
+    let index = 0;
+
+    while (index < this.word.length) {
+      if ( this.guesses[index].letter !== this.word[index] ) {
+        this.guesses[index] = { type: 'bad', letter: this.getType(this.word[index], true) }
+      }
+
+      index++
+    }
+  }
+
+
   /*
   updates the guesses array with the letter
   */
   revealLetter (index, letter) {
-    this.guesses[index] = letter
+    this.guesses[index] = { type: 'good', letter: letter }
     this.correctGuesses += 1
   }
 
@@ -102,8 +116,10 @@ class HangmanModel {
     return this.incorrectGuesses === this.bodyPartsLength
   }
 
-  getType (elem) {
-    if (elem.match(regEx)) { return '_' } else if (elem.match(' ')) {
+  getType (elem, answer = false) {
+    if (elem.match(regEx)) { 
+      return answer ? elem : '_' 
+    } else if (elem.match(' ')) {
       return '&nbsp'
     } else {
       return elem
@@ -121,7 +137,7 @@ class HangmanModel {
     this.guesses = []
 
     this.guesses = wordArray.map((elem) => {
-      return this.getType(elem)
+      return { type: 'none', letter: this.getType(elem) }
     })
 
     var onlyLettersArray = wordArray.filter((elem) => {
@@ -131,14 +147,14 @@ class HangmanModel {
     this.length = onlyLettersArray.length
   }
 
-/* returns a random word from the randomList */
+  /* returns a random word from the randomList */
   getRandomWord () {
     var index = Math.floor(Math.random() * randomList.length)
 
     return randomList[index]
   }
 
-/* sets the word from the randomList */
+  /* sets the word from the randomList */
   setRandomWord () {
     this.word = this.getRandomWord()
     return this.word
@@ -146,4 +162,8 @@ class HangmanModel {
 
 }
 
-if (module) module.exports = HangmanModel
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = HangmanModel
+} else {
+  window.HangmanModel = HangmanModel
+}

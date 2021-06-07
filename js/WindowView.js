@@ -150,6 +150,8 @@ class WindowView {
     if (this.model.lostGame()) {
       this.playAudio($('.decapitation'))
       this.makeUnclickable(this.displays.letter)
+      this.model.revealAnswer()
+      this.renderGuesses()
     } else {
       this.playAudio($('.torture'))
     }
@@ -218,9 +220,9 @@ class WindowView {
   }
 
   /* This replaces/adds one underscore on the viewport */
-  renderGuess (letter) {
+  renderGuess ( {letter, type} ) {
     var $newSpan = $('<span></span>')
-    .attr('class', letter.toUpperCase())
+    .attr('class', letter.toUpperCase() + ' ' + type)
     .html(letter + ' ')
 
     this.displays.underscore.append($newSpan)
@@ -229,10 +231,12 @@ class WindowView {
   /* render the underscores/guessed letters to the viewport */
   renderGuesses () {
     var guesses = this.model.getGuesses()
-    this.displays.underscore.children('span').empty()
+    console.log(guesses);
+    // this.displays.underscore.children('span').empty()
+    this.displays.underscore.empty();
 
-    guesses.map((letter) => {
-      this.renderGuess(letter)
+    guesses.map((guess) => {
+      this.renderGuess(guess)
     })
   }
 

@@ -40,6 +40,11 @@ input[type='button'] {
 
 a { color: black; }
 
+/* unguessed letter */
+.bad {
+  color: red;
+}
+
 @media screen and (min-width: 651px) {
   .gamearea .hangman { width: 40vh; height: 40vh;}
 
