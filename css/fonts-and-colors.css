@@ -15,7 +15,9 @@ body {
 
 header, h2 { text-transform: uppercase; }
 
-.underscore { font-size: 3vw; }
+.underscore {
+  font-size: 4vw;
+}
 
 input[type='button'] {
   background-color: #FFFFFF;
@@ -23,7 +25,6 @@ input[type='button'] {
 }
 
 .letters{
-  font-size: 2vw;
   text-align: center;
 }
 
@@ -38,3 +39,16 @@ input[type='button'] {
 .letter:hover { color: #E9E9E9; }
 
 a { color: black; }
+
+/* unguessed letter */
+.bad {
+  color: red;
+}
+
+@media screen and (min-width: 651px) {
+  .gamearea .hangman { width: 40vh; height: 40vh;}
+
+  .letters {
+      font-size: 2vw;
+  }
+}

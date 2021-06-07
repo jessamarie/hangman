@@ -26,4 +26,4 @@ Feedback Welcome
 ----------------
 Please feel free to leave any feedback or suggestions by creating an issue in this repo. It will help me make the game more enjoyable for you!
 
-For additional information please see the [DOCS](https://github.com/jessamarie/hangman/Docs)
+For additional information please see the [DOCS](https://github.com/jessamarie/hangman/tree/master/Docs)

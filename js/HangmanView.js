@@ -10,8 +10,6 @@ class HangmanView {
 
     this.resetDimensions()
     this.listen()
-    this.initHangman()
-    this.setRe
     this.initVariables()
   }
 
@@ -398,4 +396,8 @@ class HangmanView {
 
 }
 
-if (module) module.exports = HangmanView
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = HangmanView
+} else {
+  window.HangmanView = HangmanView
+}
